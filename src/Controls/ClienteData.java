@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class ClienteData {
 
-    //methods
+    //attributes
     private Connection con;
 
     //constructor

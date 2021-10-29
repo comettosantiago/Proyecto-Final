@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  */
 public class DestinoData {
 
-    //methods
+    //attributes
     private Connection con;
 
     //constructor
@@ -101,8 +101,11 @@ public class DestinoData {
 
         try {
             String query = "SELECT * FROM destino WHERE idDestino = ? AND activo = true";
+            
             PreparedStatement ps = con.prepareStatement(query);
+            
             ps.setInt(1, idDestino);
+            
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

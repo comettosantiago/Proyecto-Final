@@ -70,7 +70,7 @@ public class Destino {
 
     @Override
     public String toString() {
-        return "Destino{" + "idDestino=" + idDestino + ", nombreDestino=" + nombreDestino + ", pais=" + pais + ", activo=" + activo + '}';
+        return nombreDestino + ", " + pais;
     }
 
 }

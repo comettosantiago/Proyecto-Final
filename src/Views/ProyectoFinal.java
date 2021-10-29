@@ -7,7 +7,9 @@ package Views;
 
 import Controls.ClienteData;
 import Controls.Conexion;
+import Controls.DestinoData;
 import Models.Cliente;
+import Models.Destino;
 
 /**
  *
@@ -20,29 +22,40 @@ public class ProyectoFinal {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+
+        //conexiones
         Conexion con = new Conexion();
-        
+
         ClienteData cd = new ClienteData(con);
-        
+
+        DestinoData dd = new DestinoData(con);
+
+        //clientes
         Cliente santi = new Cliente(5, 42278453, "Santiago", "Cometto", "Calle 123", "San Luis", "2657770031", "santiagustinvm@gmail.com");
 
-        //cd.agregarCliente(santi);
+        Cliente lean = new Cliente(31125897, "Leando", "Damiani", "Calle 321", "San Luis", "2657751698", "leandroelfacha@gmail.com");
         
-        santi.setNombre("Santiaaa");
-        
-        //cd.editarCliente(santi);
-        
-        Cliente lean = new Cliente(31125897,"Leando", "Damiani", "Calle 321", "San Luis", "2657751698", "leandroelfacha@gmail.com");
-        
-        //cd.agregarCliente(lean);
-
         System.out.println(cd.buscarCliente(8));
-        
+
         System.out.println(cd.listarClientes());
+
+        //destinos
+        Destino villacp = new Destino(9, "Villa Carlos Paz", "Argentina", true);
+        
+        System.out.println(dd.buscarDestino(7));
+        
+        dd.editarDestino(villacp);
+        
+        //dd.eliminarDestino(5);
+        
+        System.out.println(dd.listarTodosLosDestinos());
         
         
-        //cd.eliminarCliente(6);
         
+        
+        
+        
+
     }
-    
+
 }

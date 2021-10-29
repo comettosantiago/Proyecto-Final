@@ -190,4 +190,36 @@ public class TransporteData {
         return listaTransportes;
     }
 
+    public List<Transporte> listarTransportesDeUnDestino(int idDestino) {
+        ArrayList<Transporte> listaTransportes = new ArrayList<>();
+
+        try {
+            String query = "SELECT * FROM transporte WHERE idDestino = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setInt(1, idDestino);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Transporte t = new Transporte();
+                Destino d = dd.buscarDestino(idDestino);
+
+                t.setIdTransporte(rs.getInt("idTransporte"));
+                t.setDestino(d);
+                t.setTipoDeTransporte(rs.getString("tipoDeTransporte"));
+                t.setCostoTransporte(rs.getFloat("costoTransporte"));
+                t.setActivo(rs.getBoolean("activo"));
+
+                listaTransportes.add(t);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+
+        return listaTransportes;
+    }
+
 }

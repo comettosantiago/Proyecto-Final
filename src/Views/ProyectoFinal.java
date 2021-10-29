@@ -71,6 +71,8 @@ public class ProyectoFinal {
         
         //System.out.println(td.listarTodosLosTransportes());
         
+        //System.out.println(td.listarTransportesDeUnDestino(7));
+        
         
             
             

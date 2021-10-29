@@ -51,15 +51,8 @@ public class Transporte {
         return tipoDeTransporte;
     }
 
-    public float getCostoTransporte() {                          //CONSULTAR SI ESTA BIEN ASI O SI HAY QUE CARGAR EL PRECIO QUE SE QUIERA 
-        //   if ("Colectivo".equals(this.tipoDeTransporte)) {
-        //       return costoTransporte = (float) (costoTransporte * 0.80);   //el precio a cargar en la base de datos siempre es el precio base (el del automovil)
-        //  }                                                                //en las vistas siempre se debe cargar el precio base, el programa se encarga de calcular segun el tipo
-        //  if ("Avion".equals(this.tipoDeTransporte)) {
-        //      return costoTransporte = (float) (costoTransporte * 1.40);
-        //  } else {
+    public float getCostoTransporte() {                          
         return costoTransporte;
-        //  }
     }
 
     public boolean isActivo() {

@@ -24,7 +24,7 @@ public class ProyectoFinal {
         
         ClienteData cd = new ClienteData(con);
         
-        Cliente santi = new Cliente(5, 42278453, "Santiago", "Cometto", "Calle 123", "San Luis", 770031, "santiagustinvm@gmail.com");
+        Cliente santi = new Cliente(5, 42278453, "Santiago", "Cometto", "Calle 123", "San Luis", "2657770031", "santiagustinvm@gmail.com");
 
         //cd.agregarCliente(santi);
         
@@ -32,7 +32,7 @@ public class ProyectoFinal {
         
         //cd.editarCliente(santi);
         
-        Cliente lean = new Cliente(31125897,"Leando", "Damiani", "Calle 321", "San Luis", 751698, "leandroelfacha@gmail.com");
+        Cliente lean = new Cliente(31125897,"Leando", "Damiani", "Calle 321", "San Luis", "2657751698", "leandroelfacha@gmail.com");
         
         //cd.agregarCliente(lean);
 

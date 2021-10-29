@@ -18,7 +18,7 @@ public class Cliente {
     private String apellido;
     private String direccion;
     private String ciudad;
-    private int telefono;
+    private String telefono;
     private String email;
 
     //constructor
@@ -26,7 +26,7 @@ public class Cliente {
 
     }
 
-    public Cliente(int dni, String nombre, String apellido, String direccion, String ciudad, int telefono, String email) {
+    public Cliente(int dni, String nombre, String apellido, String direccion, String ciudad, String telefono, String email) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -36,7 +36,7 @@ public class Cliente {
         this.email = email;
     }
 
-    public Cliente(int idCliente, int dni, String nombre, String apellido, String direccion, String ciudad, int telefono, String email) {
+    public Cliente(int idCliente, int dni, String nombre, String apellido, String direccion, String ciudad, String telefono, String email) {
         this.idCliente = idCliente;
         this.dni = dni;
         this.nombre = nombre;
@@ -72,7 +72,7 @@ public class Cliente {
         return ciudad;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
@@ -104,7 +104,7 @@ public class Cliente {
         this.ciudad = ciudad;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

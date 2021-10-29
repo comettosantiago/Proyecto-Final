@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -43,7 +41,7 @@ public class ClienteData {
             ps.setString(3, c.getApellido());
             ps.setString(4, c.getDireccion());
             ps.setString(5, c.getCiudad());
-            ps.setInt(6, c.getTelefono());
+            ps.setString(6, c.getTelefono());
             ps.setString(7, c.getEmail());
 
             ps.executeUpdate();
@@ -92,7 +90,7 @@ public class ClienteData {
             ps.setString(3, c.getApellido());
             ps.setString(4, c.getDireccion());
             ps.setString(5, c.getCiudad());
-            ps.setInt(6, c.getTelefono());
+            ps.setString(6, c.getTelefono());
             ps.setString(7, c.getEmail());
 
             if (ps.executeUpdate() > 0) {
@@ -124,7 +122,7 @@ public class ClienteData {
                 c.setApellido(rs.getString("apellido"));
                 c.setDireccion(rs.getString("direccion"));
                 c.setCiudad(rs.getString("ciudad"));
-                c.setTelefono(rs.getInt("telefono"));
+                c.setTelefono(rs.getString("telefono"));
                 c.setEmail(rs.getString("email"));
             }
             ps.close();
@@ -152,7 +150,7 @@ public class ClienteData {
                 c.setApellido(rs.getString("apellido"));
                 c.setDireccion(rs.getString("direccion"));
                 c.setCiudad(rs.getString("ciudad"));
-                c.setTelefono(rs.getInt("telefono"));
+                c.setTelefono(rs.getString("telefono"));
                 c.setEmail(rs.getString("email"));
 
                 listaClientes.add(c);

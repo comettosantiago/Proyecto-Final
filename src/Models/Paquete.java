@@ -6,6 +6,7 @@
 package Models;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -82,6 +83,13 @@ public class Paquete {
     }
 
     public float getCostoTotalPaquete() {
+        int dias = (int) ChronoUnit.DAYS.between(this.getFechaInicio(), this.getFechaFin());
+
+        costoTotalPaquete
+                = transporte.getCostoTransporte()
+                + (extra.getAlojamiento().getCostoAlojamiento() * dias)
+                + (extra.getCosto() * dias);
+
         return costoTotalPaquete;
     }
 

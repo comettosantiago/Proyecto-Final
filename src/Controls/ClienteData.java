@@ -132,7 +132,7 @@ public class ClienteData {
         return c;
     }
 
-    public List<Cliente> listarClientes() {
+    public List<Cliente> listarTodosLosClientes() {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
         try {
             String query = "SELECT * FROM cliente";
@@ -161,5 +161,37 @@ public class ClienteData {
         }
         return listaClientes;
     }
+    
+        public List<Cliente> listarClientesActivos() {
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM cliente WHERE activo = true";
+
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Cliente c = new Cliente();
+
+                c.setIdCliente(rs.getInt("idCliente"));
+                c.setDni(rs.getInt("dni"));
+                c.setNombre(rs.getString("nombre"));
+                c.setApellido(rs.getString("apellido"));
+                c.setDireccion(rs.getString("direccion"));
+                c.setCiudad(rs.getString("ciudad"));
+                c.setTelefono(rs.getString("telefono"));
+                c.setEmail(rs.getString("email"));
+
+                listaClientes.add(c);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al buscar cliente");
+        }
+        return listaClientes;
+    }
+    
+    
 
 }

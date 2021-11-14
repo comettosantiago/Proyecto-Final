@@ -64,7 +64,6 @@ public class ProyectoFinal {
         //destinos--------------------------------------
         Destino villacp = new Destino(9, "Villa Carlos Paz", "Argentina", true);
         
-        
         //System.out.println(dd.buscarDestino(7));
         
         //dd.editarDestino(villacp);
@@ -129,9 +128,9 @@ public class ProyectoFinal {
         //paquetes----------------------------------------
         Paquete p = new Paquete(santi, transporte, ea, LocalDate.of(2022, 01, 15), LocalDate.of(2022, 2, 16), LocalDate.of(2021, 11, 01), 0, true);
         
-        System.out.println(p.getCostoTotalPaquete());
+        //System.out.println(p.getCostoTotalPaquete());
         
-        pd.agregarPaquete(p);
+        //pd.agregarPaquete(p);
         
         
             

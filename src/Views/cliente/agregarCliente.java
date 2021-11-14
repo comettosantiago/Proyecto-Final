@@ -5,17 +5,32 @@
  */
 package Views.cliente;
 
+import Controls.ClienteData;
+import Controls.Conexion;
+import Models.Cliente;
+
 /**
  *
  * @author Isaias
  */
 public class agregarCliente extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form agregarCliente
-     */
+    Conexion con = new Conexion();
+
+    ClienteData cd = new ClienteData(con);
+
     public agregarCliente() {
         initComponents();
+    }
+
+    public void limpiarCampos() {
+        jTextNombre.setText("");
+        jTextApellido.setText("");
+        jTextDni.setText("");
+        jTextDireccion.setText("");
+        jTextCiudad.setText("");
+        jTextTelefono.setText("");
+        jTextEmail.setText("");
     }
 
     /**
@@ -35,15 +50,15 @@ public class agregarCliente extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jTextNombre = new javax.swing.JTextField();
+        jTextApellido = new javax.swing.JTextField();
+        jTextDni = new javax.swing.JTextField();
+        jTextDireccion = new javax.swing.JTextField();
+        jTextCiudad = new javax.swing.JTextField();
+        jTextTelefono = new javax.swing.JTextField();
+        jTextEmail = new javax.swing.JTextField();
+        jButtonAgregar = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Agregar Cliente");
@@ -62,9 +77,19 @@ public class agregarCliente extends javax.swing.JInternalFrame {
 
         jLabel8.setText("Email:");
 
-        jButton1.setText("Agregar");
+        jButtonAgregar.setText("Agregar");
+        jButtonAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAgregarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salir");
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,19 +109,18 @@ public class agregarCliente extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(73, 73, 73)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField1)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(jTextNombre)
+                            .addComponent(jTextApellido)
+                            .addComponent(jTextDni)
+                            .addComponent(jTextDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(jTextCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(jTextTelefono)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(103, 103, 103)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonAgregar)
                         .addGap(40, 40, 40)
-                        .addComponent(jButton2)))
+                        .addComponent(jButtonSalir)))
                 .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -110,45 +134,65 @@ public class agregarCliente extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCiudad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonAgregar)
+                    .addComponent(jButtonSalir))
                 .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
+        Cliente c = new Cliente();
+        
+        c.setDni(Integer.parseInt(jTextDni.getText()));
+        c.setNombre(jTextNombre.getText());
+        c.setApellido(jTextApellido.getText());
+        c.setDireccion(jTextDireccion.getText());
+        c.setCiudad(jTextCiudad.getText());
+        c.setTelefono(jTextTelefono.getText());
+        c.setEmail(jTextEmail.getText());
+
+        cd.agregarCliente(c);
+        
+        limpiarCampos();
+    }//GEN-LAST:event_jButtonAgregarActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonAgregar;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -157,12 +201,12 @@ public class agregarCliente extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextApellido;
+    private javax.swing.JTextField jTextCiudad;
+    private javax.swing.JTextField jTextDireccion;
+    private javax.swing.JTextField jTextDni;
+    private javax.swing.JTextField jTextEmail;
+    private javax.swing.JTextField jTextNombre;
+    private javax.swing.JTextField jTextTelefono;
     // End of variables declaration//GEN-END:variables
 }

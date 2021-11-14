@@ -11,6 +11,10 @@ import Views.cliente.agregarCliente;
 import Views.cliente.editarEliminarCliente;
 import Views.destino.agregarDestino;
 import Views.destino.editarEliminarDestino;
+import Views.extraalojamiento.agregarExtraalojamiento;
+import Views.extraalojamiento.editarEliminarExtra;
+import Views.paquete.agregarPaquete;
+import Views.paquete.editarEliminarPaquete;
 import Views.transporte.agregarTransporte;
 import Views.transporte.editarEliminarTransporte;
 import javax.swing.JInternalFrame;
@@ -23,6 +27,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     public void centrarVentanaInterna(JInternalFrame internalFrame) {
@@ -68,15 +73,17 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        panelPrincipal.setPreferredSize(new java.awt.Dimension(1000, 700));
+
         javax.swing.GroupLayout panelPrincipalLayout = new javax.swing.GroupLayout(panelPrincipal);
         panelPrincipal.setLayout(panelPrincipalLayout);
         panelPrincipalLayout.setHorizontalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 603, Short.MAX_VALUE)
+            .addGap(0, 1000, Short.MAX_VALUE)
         );
         panelPrincipalLayout.setVerticalGroup(
             panelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 475, Short.MAX_VALUE)
+            .addGap(0, 700, Short.MAX_VALUE)
         );
 
         jMenuBar1.add(jMenu5);
@@ -164,9 +171,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Extra");
 
         jMenuItem11.setText("Agregar");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem11);
 
         jMenuItem12.setText("Editar");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem12);
 
         jMenuBar1.add(jMenu1);
@@ -174,9 +191,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu12.setText("Crear Paquete");
 
         jMenuItem9.setText("Generar Paquete");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu12.add(jMenuItem9);
 
         jMenuItem10.setText("Editar Paquete");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu12.add(jMenuItem10);
 
         jMenuBar1.add(jMenu12);
@@ -273,6 +300,42 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelPrincipal.add(vent);
         centrarVentanaInterna(vent);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        agregarExtraalojamiento vent = new agregarExtraalojamiento();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        editarEliminarExtra vent = new editarEliminarExtra();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        agregarPaquete vent = new agregarPaquete();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        editarEliminarPaquete vent = new editarEliminarPaquete();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
      * @param args the command line arguments

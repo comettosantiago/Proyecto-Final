@@ -81,7 +81,7 @@ public class Extraalojamiento {
 
     @Override
     public String toString() {
-        return "Extraalojamiento{" + "idExtra=" + idExtra + ", alojamiento=" + alojamiento + ", tipoDeMenu=" + tipoDeMenu + ", costo=" + costo + ", activo=" + activo + '}';
+        return alojamiento.getNombreAlojamiento() + " " + tipoDeMenu;
     }
 
 }

@@ -5,22 +5,55 @@
  */
 package Views.extraalojamiento;
 
+import Controls.AlojamientoData;
+import Controls.Conexion;
+import Controls.ExtraalojamientoData;
 import Models.Alojamiento;
 import Models.Extraalojamiento;
+import java.util.ArrayList;
 
 /**
  *
  * @author Isaias
  */
 public class editarEliminarExtra extends javax.swing.JInternalFrame {
+    Conexion con = new Conexion();
 
+    AlojamientoData ad = new AlojamientoData(con);
+
+    ExtraalojamientoData ed = new ExtraalojamientoData(con);
     /**
      * Creates new form editarEliminarExtra
      */
     public editarEliminarExtra() {
         initComponents();
+        llenarComboExtra();
+        llenarComboAlojamiento();
+        limpiarCampos();
     }
+    public void limpiarCampos(){
+        jComboExtra.setSelectedIndex(-1);
+        jComboAlojamiento.setSelectedIndex(-1);
+        jComboMenu.setSelectedIndex(-1);
+        jTextCosto.setText("");
+        buttonGroup1.clearSelection();
+    }
+    public void llenarComboExtra() {
+        ArrayList<Extraalojamiento> listaExtraalojamiento = (ArrayList<Extraalojamiento>) ed.listarTodosLosExtras();
 
+        for (Extraalojamiento e : listaExtraalojamiento) {
+            jComboExtra.addItem(e);
+        }
+        jComboAlojamiento.setSelectedIndex(-1);
+    }
+    public void llenarComboAlojamiento() {
+        ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarTodosLosAlojamientos();
+
+        for (Alojamiento a : listaalojamientos) {
+            jComboAlojamiento.addItem(a);
+        }
+        jComboAlojamiento.setSelectedIndex(-1);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,36 +70,71 @@ public class editarEliminarExtra extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jRadioSi = new javax.swing.JRadioButton();
+        jRadioNo = new javax.swing.JRadioButton();
+        jComboExtra = new javax.swing.JComboBox<>();
+        jComboAlojamiento = new javax.swing.JComboBox<>();
+        jComboMenu = new javax.swing.JComboBox<>();
+        jTextCosto = new javax.swing.JTextField();
+        jBtGuardar = new javax.swing.JButton();
+        jBtSalir = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setTitle("Editar Extra");
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("Editar Extra");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Extra:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Alojamiento:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Menu:");
 
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Costo:");
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Activo:");
 
-        jRadioButton1.setText("Si");
+        buttonGroup1.add(jRadioSi);
+        jRadioSi.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jRadioSi.setText("Si");
 
-        jRadioButton2.setText("No");
+        buttonGroup1.add(jRadioNo);
+        jRadioNo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jRadioNo.setText("No");
 
-        jTextField1.setText("jTextField1");
+        jComboExtra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboExtraActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Guardar");
+        jComboMenu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desayuno", "Media pension + Desayuno", "Pension completa + Desayuno" }));
+        jComboMenu.setSelectedIndex(-1);
 
-        jButton2.setText("Salir");
+        jBtGuardar.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jBtGuardar.setText("Guardar");
+        jBtGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGuardarActionPerformed(evt);
+            }
+        });
+
+        jBtSalir.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jBtSalir.setText("Salir");
+        jBtSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,85 +143,138 @@ public class editarEliminarExtra extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(66, 66, 66)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel3))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(62, 62, 62)
-                                .addComponent(jRadioButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(jButton1)
-                        .addGap(39, 39, 39)
-                        .addComponent(jButton2)))
-                .addContainerGap(80, Short.MAX_VALUE))
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jRadioSi)
+                                .addGap(35, 35, 35)
+                                .addComponent(jRadioNo))
+                            .addComponent(jComboExtra, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboAlojamiento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboMenu, 0, 220, Short.MAX_VALUE))
+                        .addContainerGap(130, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBtGuardar)
+                        .addGap(26, 26, 26)
+                        .addComponent(jBtSalir)
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(41, Short.MAX_VALUE)
                 .addComponent(jLabel1)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addComponent(jRadioSi)
+                    .addComponent(jRadioNo))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBtGuardar)
+                    .addComponent(jBtSalir))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboExtraActionPerformed
+         Extraalojamiento e = (Extraalojamiento) jComboExtra.getSelectedItem();
+
+        if (jComboExtra.getSelectedItem() != null || jComboExtra.getSelectedIndex() != -1) {
+            jComboAlojamiento.setSelectedItem(e.getAlojamiento());
+            jComboMenu.setSelectedItem(e.getTipoDeMenu());
+            jTextCosto.setText(Float.toString(e.getCosto()));
+            if (e.isActivo()) {
+                jRadioSi.setSelected(true);
+            } else {
+                jRadioNo.setSelected(true);
+            }
+        }
+
+    }//GEN-LAST:event_jComboExtraActionPerformed
+
+    private void jBtGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGuardarActionPerformed
+        Extraalojamiento e = (Extraalojamiento) jComboExtra.getSelectedItem();
+
+        e.setAlojamiento((Alojamiento)jComboAlojamiento.getSelectedItem());
+        e.setTipoDeMenu(jComboMenu.getSelectedItem().toString());
+        e.setCosto(Float.parseFloat(jTextCosto.getText()));
+        if (jRadioSi.isSelected()) {
+            e.setActivo(true);
+        } else {
+            e.setActivo(false);
+        }
+
+        ed.editarExtra(e);
+
+        limpiarCampos();
+    }//GEN-LAST:event_jBtGuardarActionPerformed
+
+    private void jBtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jBtSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<Extraalojamiento> jComboBox1;
-    private javax.swing.JComboBox<Alojamiento> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton jBtGuardar;
+    private javax.swing.JButton jBtSalir;
+    private javax.swing.JComboBox<Alojamiento> jComboAlojamiento;
+    private javax.swing.JComboBox<Extraalojamiento> jComboExtra;
+    private javax.swing.JComboBox<String> jComboMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton jRadioNo;
+    private javax.swing.JRadioButton jRadioSi;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextCosto;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,20 +4,41 @@
  * and open the template in the editor.
  */
 package Views.transporte;
-
+import Controls.Conexion;
+import Controls.DestinoData;
+import Controls.TransporteData;
+import Models.Destino;
+import Models.Transporte;
+import java.util.ArrayList;
 /**
  *
  * @author Isaias
  */
 public class agregarTransporte extends javax.swing.JInternalFrame {
+    Conexion con = new Conexion();
 
+    TransporteData td = new TransporteData(con);
+    DestinoData dd = new DestinoData(con);
     /**
      * Creates new form agregarTransporte
      */
     public agregarTransporte() {
         initComponents();
+        llenarComboDestino();
+        limpiarCampos();
     }
-
+    public void limpiarCampos() {
+        jTextTransporte.setText("");
+        jTextCosto.setText("");
+    }
+    public void llenarComboDestino() {
+        ArrayList<Destino> listaDestinos = (ArrayList<Destino>) dd.listarDestinosActivos();
+        
+        for (Destino d : listaDestinos) {
+            jComboDestino.addItem(d);
+        }
+        jComboDestino.setSelectedIndex(-1);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,10 +51,12 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jBtAgregar = new javax.swing.JButton();
+        jBtSalir = new javax.swing.JButton();
+        jTextTransporte = new javax.swing.JTextField();
+        jTextCosto = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jComboDestino = new javax.swing.JComboBox<>();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Agregar Transporte");
@@ -42,9 +65,21 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Tipo de transporte:");
 
-        jButton1.setText("Agregar");
+        jBtAgregar.setText("Agregar");
+        jBtAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAgregarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salir");
+        jBtSalir.setText("Salir");
+        jBtSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtSalirActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Destino");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,20 +89,26 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
-                        .addComponent(jButton1)
+                        .addComponent(jBtAgregar)
                         .addGap(47, 47, 47)
-                        .addComponent(jButton2))
+                        .addComponent(jBtSalir))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
-                                .addComponent(jLabel2)))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                            .addComponent(jTextField1)))
+                                .addComponent(jLabel2))
+                            .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                                    .addComponent(jTextTransporte)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jComboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
                         .addComponent(jLabel1)))
@@ -77,32 +118,54 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(55, 55, 55)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextTransporte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jBtAgregar)
+                    .addComponent(jBtSalir))
                 .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAgregarActionPerformed
+        Destino destino = (Destino)jComboDestino.getSelectedItem();
+        String transporte = jTextTransporte.getText();
+        float costo = Float.parseFloat(jTextCosto.getText());
+        
+        Transporte t = new Transporte(destino, transporte, costo, true);
+        
+        td.agregarTransporte(t);
+        
+        limpiarCampos();
+    }//GEN-LAST:event_jBtAgregarActionPerformed
+
+    private void jBtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jBtSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jBtAgregar;
+    private javax.swing.JButton jBtSalir;
+    private javax.swing.JComboBox<Destino> jComboDestino;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jTextCosto;
+    private javax.swing.JTextField jTextTransporte;
     // End of variables declaration//GEN-END:variables
 }

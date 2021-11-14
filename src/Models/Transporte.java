@@ -81,7 +81,7 @@ public class Transporte {
 
     @Override
     public String toString() {
-        return "Transporte{" + "idTransporte=" + idTransporte + ", destino=" + destino + ", tipoDeTransporte=" + tipoDeTransporte + ", costoTransporte=" + costoTransporte + ", activo=" + activo + '}';
+        return tipoDeTransporte + " a " + destino.getNombreDestino() + " $" + costoTransporte;
     }
 
 }

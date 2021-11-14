@@ -5,10 +5,14 @@
  */
 package Views;
 
+import Views.alojamiento.agregarAlojamiento;
+import Views.alojamiento.editarEliminarAlojamiento;
 import Views.cliente.agregarCliente;
 import Views.cliente.editarEliminarCliente;
 import Views.destino.agregarDestino;
 import Views.destino.editarEliminarDestino;
+import Views.transporte.agregarTransporte;
+import Views.transporte.editarEliminarTransporte;
 import javax.swing.JInternalFrame;
 
 /**
@@ -80,9 +84,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu7.setText("Transporte");
 
         jMenuItem2.setText("Agregar");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem2);
 
         jMenuItem1.setText("Editar ");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem1);
 
         jMenuBar1.add(jMenu7);
@@ -90,6 +104,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu8.setText("Alojamiento");
 
         jMenuItem3.setText("Agregar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu8.add(jMenuItem3);
 
         jMenuItem4.setText("Editar");
@@ -183,7 +202,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        editarEliminarAlojamiento vent = new editarEliminarAlojamiento();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jmiAgregarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAgregarDestinoActionPerformed
@@ -222,6 +246,33 @@ public class VistaPrincipal extends javax.swing.JFrame {
         panelPrincipal.add(vent);
         centrarVentanaInterna(vent);
     }//GEN-LAST:event_jmiEditarClienteActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        agregarTransporte vent = new agregarTransporte();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        editarEliminarTransporte vent = new editarEliminarTransporte();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        panelPrincipal.removeAll();
+        panelPrincipal.repaint();
+        agregarAlojamiento vent = new agregarAlojamiento();
+        vent.setVisible(true);
+        panelPrincipal.add(vent);
+        centrarVentanaInterna(vent);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -6,7 +6,9 @@
 package Models;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import javafx.util.converter.LocalDateStringConverter;
 
 /**
  *
@@ -90,7 +92,14 @@ public class Paquete {
                 + (extra.getAlojamiento().getCostoAlojamiento() * dias)
                 + (extra.getCosto() * dias);
 
-        return costoTotalPaquete;
+        if (fechaInicio.getMonthValue() == 1 || fechaInicio.getMonthValue() == 7) {
+            return costoTotalPaquete = (float) (costoTotalPaquete * 1.30);
+        } else if (fechaInicio.getMonthValue() == 2 || fechaInicio.getMonthValue() == 6) {
+            return costoTotalPaquete = (float) (costoTotalPaquete * 1.15);
+        } else {
+            return costoTotalPaquete;
+        }
+
     }
 
     public boolean isActivo() {

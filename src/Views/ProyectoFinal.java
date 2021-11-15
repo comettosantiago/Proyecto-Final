@@ -126,11 +126,11 @@ public class ProyectoFinal {
         
         
         //paquetes----------------------------------------
-        Paquete p = new Paquete(santi, transporte, ea, LocalDate.of(2022, 3, 15), LocalDate.of(2022, 4, 15), LocalDate.of(2021, 11, 01), 0, true);
+        Paquete p = new Paquete(santi, transporte, ea, LocalDate.of(2022, 2, 15), LocalDate.of(2022, 3, 19), LocalDate.of(2021, 11, 01), 0, true);
         
         //System.out.println(p.getCostoTotalPaquete());
         
-        //pd.agregarPaquete(p);
+        pd.agregarPaquete(p);             
         
         
             

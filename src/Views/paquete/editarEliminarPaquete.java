@@ -25,6 +25,7 @@ import Models.Paquete;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class editarEliminarPaquete extends javax.swing.JInternalFrame {
@@ -70,10 +71,10 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         jComboExtra.setSelectedIndex(-1);
         jFechaInicio.setDate(null);
         jFechaFin.setDate(null);
+        jSpinnercantidad.setValue(Integer.valueOf(0));
         jTextEmision.setText("");
-        jSpinnercantidad.setValue(null);
         buttonGroup1.clearSelection();
-        
+        jTextCostoTotal.setText("");
     }
 
     /**
@@ -120,7 +121,7 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Editar Paquete Turistico");
-        setPreferredSize(new java.awt.Dimension(817, 817));
+        setPreferredSize(new java.awt.Dimension(674, 560));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Editar Paquete");
@@ -190,6 +191,12 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Activo:");
 
+        jComboTransporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboTransporteMouseClicked(evt);
+            }
+        });
+
         jBtCalcular.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jBtCalcular.setText("Calcular");
         jBtCalcular.addActionListener(new java.awt.event.ActionListener() {
@@ -201,8 +208,28 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Destino:");
 
+        jComboDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboDestinoFocusLost(evt);
+            }
+        });
+        jComboDestino.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboDestinoMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jComboDestinoMouseReleased(evt);
+            }
+        });
+
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText("Alojamiento:");
+
+        jComboAlojamiento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboAlojamientoFocusLost(evt);
+            }
+        });
 
         jTextEmision.setEditable(false);
 
@@ -233,28 +260,28 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jTextCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel11))
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jRadioSi)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
                                         .addComponent(jRadioNo))
-                                    .addComponent(jFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jBtGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jBtCalcular)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jBtSalir)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                                .addGap(27, 27, 27)
+                                .addComponent(jBtCalcular)
+                                .addGap(27, 27, 27)
+                                .addComponent(jBtSalir)))))
+                .addContainerGap(21, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,37 +346,32 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
                     .addComponent(jComboExtra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 18, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jFechaFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(jRadioSi)
-                            .addComponent(jRadioNo))
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jBtGuardar)
-                            .addComponent(jBtCalcular)
-                            .addComponent(jBtSalir))
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
+                        .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(jRadioSi)
+                            .addComponent(jRadioNo))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel10))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtGuardar)
+                    .addComponent(jBtCalcular)
+                    .addComponent(jBtSalir))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -360,53 +382,35 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jComboExtraActionPerformed
 
     private void jComboPaqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboPaqueteActionPerformed
+        jComboDestino.removeAllItems();
+        jComboTransporte.removeAllItems();
+        jComboAlojamiento.removeAllItems();
+        jComboExtra.removeAllItems();
         Paquete p = (Paquete) jComboPaquete.getSelectedItem();
-        Destino d = p.getExtra().getAlojamiento().getDestino();
         
-        //Destino
-        ArrayList<Destino> listadestinos = (ArrayList<Destino>) dd.listarDestinosActivos();
-
-        for (Destino de : listadestinos) {
-            jComboDestino.addItem(de);
-        }
-        jComboDestino.setSelectedIndex(-1);
-        
-        //Transporte
-        ArrayList<Transporte> listaTransporte = (ArrayList<Transporte>) td.listarTransportesDeUnDestino(d.getIdDestino());
-
-        for (Transporte t : listaTransporte) {
-            jComboTransporte.addItem(t);
-        }
-        jComboTransporte.setSelectedIndex(-1);
-        
-        //Alojamiento
-        ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosDeUnDestino(p.getExtra().getAlojamiento().getDestino().getIdDestino());
-
-        for (Alojamiento a : listaalojamientos) {
-            jComboAlojamiento.addItem(a);
-        }
-        jComboAlojamiento.setSelectedIndex(-1);
-        
-        //Extra
-        ArrayList<Extraalojamiento> listaExtra = (ArrayList<Extraalojamiento>) ed.listarExtrasDeUnAlojamiento(p.getExtra().getAlojamiento().getIdAlojamiento());
-
-        for (Extraalojamiento e : listaExtra) {
-            jComboExtra.addItem(e);
-        }
-        jComboExtra.setSelectedIndex(-1);
-        
+        if (jComboPaquete.getSelectedIndex() != -1 || jComboPaquete.getSelectedItem() != null){
+        jComboDestino.addItem((Destino)p.getExtra().getAlojamiento().getDestino());
+        jComboDestino.setSelectedIndex(0);
+        jComboTransporte.addItem((Transporte)p.getTransporte());
+        jComboTransporte.setSelectedIndex(0);
+        jComboAlojamiento.addItem((Alojamiento)p.getExtra().getAlojamiento());
+        jComboAlojamiento.setSelectedIndex(0);
+        jComboExtra.addItem((Extraalojamiento)p.getExtra());
+        jComboExtra.setSelectedIndex(0);
         //Fechas
-        LocalDate localdateInicio = p.getFechaInicio();
-        LocalDate localdateFin = p.getFechaFin();
         LocalDate localdateemision = LocalDate.now();
-        jFechaInicio.setDateFormatString(localdateInicio.toString());
-        jFechaFin.setDateFormatString(localdateFin.toString());
+        Date d = java.sql.Date.valueOf(p.getFechaInicio());
+         jFechaInicio.setDate(d);
+        Date de = java.sql.Date.valueOf(p.getFechaFin());
+         jFechaFin.setDate(de);
+        
         //Activo
         if (p.isActivo()) {
                 jRadioSi.setSelected(true);
             } else {
                 jRadioNo.setSelected(true);
             }
+        }
     }//GEN-LAST:event_jComboPaqueteActionPerformed
 
     private void jBtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCalcularActionPerformed
@@ -424,7 +428,7 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         if (valor <= 0) {
             JOptionPane.showMessageDialog(this, "No selecciono la cantidad de personas.");
         } else {
-            Float a = p.getCostoTotalPaquete() * valor;
+            Float a =(Float)p.getCostoTotalPaquete() * valor;
             if (a <= 0) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas de inicio/fin.");
             } else {
@@ -448,9 +452,17 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         p.setFechaInicio(localdateInicio);
         p.setFechaFin(localdateFin);
         p.setFechaEmisionPaquete(localdateemision);
-        p.setCostoTotalPaquete(Float.parseFloat(jTextCostoTotal.getText()) * ((Integer) jSpinnercantidad.getValue()));
+        p.setCostoTotalPaquete(p.getCostoTotalPaquete() * ((Integer) jSpinnercantidad.getValue()));
 
-        p.setActivo(true);
+        int personas = (int) jSpinnercantidad.getValue();
+        
+        p.cant=personas;
+        
+        if (jRadioSi.isSelected()) {
+            p.setActivo(true);
+        } else {
+            p.setActivo(false);
+        }
 
         pd.editarPaquete(p);
         limpiarCampos();
@@ -460,6 +472,56 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
     private void jBtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalirActionPerformed
        this.dispose();
     }//GEN-LAST:event_jBtSalirActionPerformed
+
+    private void jComboDestinoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboDestinoMouseClicked
+        jComboDestino.removeAllItems();    
+        ArrayList<Destino> listadestinos = (ArrayList<Destino>) dd.listarDestinosActivos();
+
+        for (Destino d : listadestinos) {
+            jComboDestino.addItem(d);
+        }
+        jComboTransporte.removeAllItems();
+        jComboAlojamiento.removeAllItems();
+        jComboExtra.removeAllItems();
+    }//GEN-LAST:event_jComboDestinoMouseClicked
+
+    private void jComboDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboDestinoFocusLost
+
+        Destino d = (Destino) jComboDestino.getSelectedItem();
+
+        ArrayList<Transporte> listaTransporte = (ArrayList<Transporte>) td.listarTransportesDeUnDestino(d.getIdDestino());
+
+        for (Transporte t : listaTransporte) {
+            jComboTransporte.addItem(t);
+        }
+            jComboTransporte.setSelectedIndex(-1);
+        
+        ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosDeUnDestino(d.getIdDestino());
+
+        for (Alojamiento a : listaalojamientos) {
+            jComboAlojamiento.addItem(a);
+        }
+        jComboAlojamiento.setSelectedIndex(-1);
+    }//GEN-LAST:event_jComboDestinoFocusLost
+
+    private void jComboAlojamientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboAlojamientoFocusLost
+        Alojamiento a = (Alojamiento) jComboAlojamiento.getSelectedItem();
+
+        ArrayList<Extraalojamiento> listaExtra = (ArrayList<Extraalojamiento>) ed.listarExtrasDeUnAlojamiento(a.getIdAlojamiento());
+
+        for (Extraalojamiento e : listaExtra) {
+            jComboExtra.addItem(e);
+        }
+        jComboExtra.setSelectedIndex(-1);
+    }//GEN-LAST:event_jComboAlojamientoFocusLost
+
+    private void jComboDestinoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboDestinoMouseReleased
+
+    }//GEN-LAST:event_jComboDestinoMouseReleased
+
+    private void jComboTransporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboTransporteMouseClicked
+
+    }//GEN-LAST:event_jComboTransporteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

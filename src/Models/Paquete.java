@@ -84,6 +84,8 @@ public class Paquete {
         return fechaEmisionPaquete;
     }
 
+    public float cant = 1;
+
     public float getCostoTotalPaquete() {
         int dias = (int) ChronoUnit.DAYS.between(this.getFechaInicio(), this.getFechaFin());
 
@@ -93,13 +95,12 @@ public class Paquete {
                 + (extra.getCosto() * dias);
 
         if (fechaInicio.getMonthValue() == 1 || fechaInicio.getMonthValue() == 7) {
-            return costoTotalPaquete = (float) (costoTotalPaquete * 1.30);
+            return costoTotalPaquete = (float) (costoTotalPaquete * 1.30) * cant;
         } else if (fechaInicio.getMonthValue() == 2 || fechaInicio.getMonthValue() == 6) {
-            return costoTotalPaquete = (float) (costoTotalPaquete * 1.15);
+            return costoTotalPaquete = (float) (costoTotalPaquete * 1.15) * cant;
         } else {
-            return costoTotalPaquete;
+            return costoTotalPaquete * cant;
         }
-
     }
 
     public boolean isActivo() {
@@ -144,7 +145,7 @@ public class Paquete {
 
     @Override
     public String toString() {
-        return "Paquete{" + "idPaquete=" + idPaquete + ", cliente=" + cliente + ", transporte=" + transporte + ", extra=" + extra + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", fechaEmisionPaquete=" + fechaEmisionPaquete + ", costoTotalPaquete=" + costoTotalPaquete + ", activo=" + activo + '}';
+        return  idPaquete + " - " + cliente.getNombre() + " " + cliente.getApellido();
     }
 
 }

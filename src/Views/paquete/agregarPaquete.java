@@ -63,9 +63,9 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jComboExtra.setSelectedIndex(-1);
         jFechaInicio.setDate(null);
         jFechaFin.setDate(null);
+        jCantidad.setValue(Integer.valueOf(0));
         jTextFechaEmision.setText(null);
         jTextCostoTotal.setText("");
-        jCantidad.setValue(null);
     }
 
     public void llenarComboCliente() {
@@ -343,7 +343,7 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         LocalDate localdateInicio = jFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateFin = jFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateemision = LocalDate.now();
-                
+
         p.setCliente((Cliente) jComboCliente.getSelectedItem());
         p.setTransporte((Transporte) jComboTransporte.getSelectedItem());
         p.setExtra((Extraalojamiento) jComboExtra.getSelectedItem());
@@ -356,7 +356,12 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
 
         p.setActivo(true);
 
-        pd.agregarPaquete(p);
+        int personas = (int) jCantidad.getValue();
+        
+        p.cant=personas;
+        
+        pd.agregarPaquete(p);       
+        
         limpiarCampos();
         completarFecha();
     }//GEN-LAST:event_jBtGenerarActionPerformed

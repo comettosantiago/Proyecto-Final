@@ -52,7 +52,7 @@ public class PaqueteData {
             ps.setDate(4, Date.valueOf(p.getFechaInicio()));
             ps.setDate(5, Date.valueOf(p.getFechaFin()));
             ps.setDate(6, Date.valueOf(p.getFechaEmisionPaquete()));
-            ps.setFloat(7, p.getCostoTotalPaquete());
+            ps.setFloat(7, (p.getCostoTotalPaquete()));
             ps.setBoolean(8, p.isActivo());
 
             ps.executeQuery();

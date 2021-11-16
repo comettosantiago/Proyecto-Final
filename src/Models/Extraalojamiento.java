@@ -81,7 +81,7 @@ public class Extraalojamiento {
 
     @Override
     public String toString() {
-        return alojamiento.getNombreAlojamiento() + " " + tipoDeMenu;
+        return alojamiento.getNombreAlojamiento() + " - " + tipoDeMenu;
     }
 
 }

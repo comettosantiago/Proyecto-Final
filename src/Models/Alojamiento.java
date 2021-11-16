@@ -92,7 +92,7 @@ public class Alojamiento {
 
     @Override
     public String toString() {
-        return nombreAlojamiento + " " + destino.getNombreDestino();
+        return nombreAlojamiento + " - " + destino.getNombreDestino();
     }
 
 }

@@ -105,7 +105,7 @@ public class ExtraalojamientoData {
     public Extraalojamiento buscarExtra(int idExtra) {
         Extraalojamiento ea = new Extraalojamiento();
         try {
-            String query = "SELECT * FROM extraalojamiento WHERE idExtra";
+            String query = "SELECT * FROM extraalojamiento WHERE idExtra = ?";
 
             PreparedStatement ps = con.prepareStatement(query);
 

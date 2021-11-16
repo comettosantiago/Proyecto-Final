@@ -130,7 +130,7 @@ public class ProyectoFinal {
         
         //System.out.println(p.getCostoTotalPaquete());
         
-        pd.agregarPaquete(p);             
+        System.out.println(td.listarTransportesDeUnDestino(5));             
         
         
             

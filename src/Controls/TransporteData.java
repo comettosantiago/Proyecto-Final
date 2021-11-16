@@ -204,7 +204,7 @@ public class TransporteData {
 
             while (rs.next()) {
                 Transporte t = new Transporte();
-                Destino d = dd.buscarDestino(idDestino);
+                Destino d = dd.buscarDestino(rs.getInt("idDestino"));
 
                 t.setIdTransporte(rs.getInt("idTransporte"));
                 t.setDestino(d);

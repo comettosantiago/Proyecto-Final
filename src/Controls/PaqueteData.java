@@ -128,10 +128,10 @@ public class PaqueteData {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                p = new Paquete();
-                Cliente c = cd.buscarCliente(p.getCliente().getIdCliente());
-                Transporte t = td.buscarTransporte(p.getTransporte().getIdTransporte());
-                Extraalojamiento e = ed.buscarExtra(p.getExtra().getIdExtra());
+                Cliente c = cd.buscarCliente(rs.getInt("idCliente"));
+                Transporte t = td.buscarTransporte(rs.getInt("idTransporte"));
+                Extraalojamiento e = ed.buscarExtra(rs.getInt("idExtra"));
+
 
                 p.setIdPaquete(rs.getInt("idPaquete"));
                 p.setCliente(c);
@@ -161,9 +161,9 @@ public class PaqueteData {
 
             while (rs.next()) {
                 Paquete p = new Paquete();
-                Cliente c = cd.buscarCliente(p.getCliente().getIdCliente());
-                Transporte t = td.buscarTransporte(p.getTransporte().getIdTransporte());
-                Extraalojamiento e = ed.buscarExtra(p.getExtra().getIdExtra());
+                Cliente c = cd.buscarCliente(rs.getInt("idCliente"));
+                Transporte t = td.buscarTransporte(rs.getInt("idTransporte"));
+                Extraalojamiento e = ed.buscarExtra(rs.getInt("idExtra"));
 
                 p.setIdPaquete(rs.getInt("idPaquete"));
                 p.setCliente(c);

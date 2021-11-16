@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,9 +46,15 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
 
     public agregarPaquete() {
         initComponents();
+        llenarComboCliente();
+        llenarComboDestino();
         limpiarCampos();
+        completarFecha();
     }
-
+    public void completarFecha(){
+        LocalDate a = LocalDate.now();
+        jTextFechaEmision.setText(a.toString());
+    }
     public void limpiarCampos() {
         jComboCliente.setSelectedIndex(-1);
         jComboDestino.setSelectedIndex(-1);
@@ -56,8 +63,9 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jComboExtra.setSelectedIndex(-1);
         jFechaInicio.setDate(null);
         jFechaFin.setDate(null);
-        jFechaEmision.setDate(null);
+        jTextFechaEmision.setText(null);
         jTextCostoTotal.setText("");
+        jCantidad.setValue(null);
     }
 
     public void llenarComboCliente() {
@@ -78,37 +86,6 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jComboDestino.setSelectedIndex(-1);
     }
 
-    //metodos para los action perfomed en combos
-    public void llenarComboTransporte() {
-        //Destino d = (Destino) jComboDestino.getSelectedItem();
-
-        //ArrayList<Transporte> listaTransporte = (ArrayList<Transporte>) td.listarTransportesDeUnDestino(d.getIdDestino());
-        //for (Transporte t : listaTransporte) {
-        //    jComboTransporte.addItem(t);
-        //}
-        //jComboDestino.setSelectedIndex(-1);
-    }
-
-    public void llenarComboAlojamiento() {
-        //Destino d = (Destino) jComboDestino.getSelectedItem();
-
-        //ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosDeUnDestino(d.getIdDestino());
-        //for (Alojamiento a : listaalojamientos) {
-        //    jComboAlojamiento.addItem(a);
-        //}
-        //jComboAlojamiento.setSelectedIndex(-1);
-    }
-
-    public void llenarComboExtra() {
-        //Alojamiento a = (Alojamiento) jComboAlojamiento.getSelectedItem();
-
-        //ArrayList<Extraalojamiento> listaExtraalojamiento = (ArrayList<Extraalojamiento>) ed.listarExtrasDeUnAlojamiento(a.getIdAlojamiento());
-        //for (Extraalojamiento e : listaExtraalojamiento) {
-        //    jComboExtra.addItem(e);
-        //}
-        //jComboAlojamiento.setSelectedIndex(-1);
-    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -126,7 +103,6 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jComboExtra = new javax.swing.JComboBox<>();
         jFechaInicio = new com.toedter.calendar.JDateChooser();
         jFechaFin = new com.toedter.calendar.JDateChooser();
-        jFechaEmision = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jTextCostoTotal = new javax.swing.JTextField();
         jBtGenerar = new javax.swing.JButton();
@@ -140,6 +116,7 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jCantidad = new javax.swing.JSpinner();
         jLabel13 = new javax.swing.JLabel();
         jBtCalcular = new javax.swing.JButton();
+        jTextFechaEmision = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -168,23 +145,6 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Fecha emision:");
 
-        jComboCliente.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jComboClienteFocusGained(evt);
-            }
-        });
-        jComboCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboClienteActionPerformed(evt);
-            }
-        });
-
-        jFechaEmision.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jFechaEmisionFocusGained(evt);
-            }
-        });
-
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Costo total:");
 
@@ -209,18 +169,21 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Destino:");
 
-        jComboDestino.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboDestinoActionPerformed(evt);
+        jComboDestino.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jComboDestinoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboDestinoFocusLost(evt);
             }
         });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Alojamiento");
 
-        jComboAlojamiento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboAlojamientoActionPerformed(evt);
+        jComboAlojamiento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboAlojamientoFocusLost(evt);
             }
         });
 
@@ -238,6 +201,8 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
             }
         });
 
+        jTextFechaEmision.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -251,11 +216,12 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jComboCliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jComboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(48, 48, 48))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addGap(66, 66, 66)
                                         .addComponent(jBtGenerar)
@@ -265,23 +231,17 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(133, 133, 133))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(jLabel6)
-                                                    .addComponent(jLabel7))
-                                                .addGap(52, 52, 52))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel8)
-                                                .addGap(2, 2, 2)))
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel8))
+                                        .addGap(52, 52, 52)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -290,7 +250,10 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
                                                         .addComponent(jTextCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addComponent(jFechaInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(26, 26, 26)
-                                                .addComponent(jBtCalcular))))
+                                                .addComponent(jBtCalcular))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(jTextFechaEmision, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jFechaFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel11)
@@ -307,7 +270,7 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jComboAlojamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jComboExtra, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0))
         );
@@ -351,11 +314,11 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
                     .addComponent(jFechaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                    .addComponent(jTextFechaEmision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jTextCostoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -375,53 +338,19 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_jBtSalirActionPerformed
 
-    private void jComboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboClienteActionPerformed
-
-    private void jComboDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboDestinoActionPerformed
-        Destino d = (Destino) jComboDestino.getSelectedItem();
-
-        ArrayList<Transporte> listaTransporte = (ArrayList<Transporte>) td.listarTransportesDeUnDestino(d.getIdDestino());
-
-        for (Transporte t : listaTransporte) {
-            jComboTransporte.addItem(t);
-        }
-        jComboDestino.setSelectedIndex(-1);
-
-        ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosDeUnDestino(d.getIdDestino());
-
-        for (Alojamiento a : listaalojamientos) {
-            jComboAlojamiento.addItem(a);
-        }
-        jComboAlojamiento.setSelectedIndex(-1);
-
-    }//GEN-LAST:event_jComboDestinoActionPerformed
-
-    private void jComboAlojamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboAlojamientoActionPerformed
-        Alojamiento a = (Alojamiento) jComboAlojamiento.getSelectedItem();
-
-        ArrayList<Extraalojamiento> listaExtraalojamiento = (ArrayList<Extraalojamiento>) ed.listarExtrasDeUnAlojamiento(a.getIdAlojamiento());
-
-        for (Extraalojamiento e : listaExtraalojamiento) {
-            jComboExtra.addItem(e);
-        }
-        jComboAlojamiento.setSelectedIndex(-1);
-    }//GEN-LAST:event_jComboAlojamientoActionPerformed
-
     private void jBtGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGenerarActionPerformed
         Paquete p = new Paquete();
         LocalDate localdateInicio = jFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateFin = jFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localdateEmision = jFechaEmision.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+        LocalDate localdateemision = LocalDate.now();
+                
         p.setCliente((Cliente) jComboCliente.getSelectedItem());
         p.setTransporte((Transporte) jComboTransporte.getSelectedItem());
         p.setExtra((Extraalojamiento) jComboExtra.getSelectedItem());
 
         p.setFechaInicio(localdateInicio);
         p.setFechaFin(localdateFin);
-        p.setFechaEmisionPaquete(localdateEmision);
+        p.setFechaEmisionPaquete(localdateemision);
 
         p.setCostoTotalPaquete(p.getCostoTotalPaquete() * ((Integer) jCantidad.getValue()));
 
@@ -429,17 +358,13 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
 
         pd.agregarPaquete(p);
         limpiarCampos();
+        completarFecha();
     }//GEN-LAST:event_jBtGenerarActionPerformed
-
-    private void jFechaEmisionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFechaEmisionFocusGained
-
-    }//GEN-LAST:event_jFechaEmisionFocusGained
 
     private void jBtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCalcularActionPerformed
         Paquete p = new Paquete();
         LocalDate localdateInicio = jFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateFin = jFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate localdateEmision = jFechaEmision.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
         p.setCliente((Cliente) jComboCliente.getSelectedItem());
         p.setTransporte((Transporte) jComboTransporte.getSelectedItem());
@@ -447,17 +372,56 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
 
         p.setFechaInicio(localdateInicio);
         p.setFechaFin(localdateFin);
-        p.setFechaEmisionPaquete(localdateEmision);
-
-        p.setCostoTotalPaquete(p.getCostoTotalPaquete() * ((Integer) jCantidad.getValue()));
+        Integer valor = (Integer) jCantidad.getValue();
+        if (valor <= 0) {
+            JOptionPane.showMessageDialog(this, "No selecciono la cantidad de personas.");
+        } else {
+            Float a = p.getCostoTotalPaquete() * valor;
+            if (a <= 0) {
+                JOptionPane.showMessageDialog(this, "Error en las fechas de inicio/fin.");
+            } else {
+                jTextCostoTotal.setText(a.toString());
+            }
+        }
 
         p.setActivo(true);
     }//GEN-LAST:event_jBtCalcularActionPerformed
 
-    private void jComboClienteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboClienteFocusGained
-        llenarComboCliente();
-        llenarComboDestino();
-    }//GEN-LAST:event_jComboClienteFocusGained
+    private void jComboDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboDestinoFocusLost
+
+        Destino d = (Destino) jComboDestino.getSelectedItem();
+
+        ArrayList<Transporte> listaTransporte = (ArrayList<Transporte>) td.listarTransportesDeUnDestino(d.getIdDestino());
+
+        for (Transporte t : listaTransporte) {
+            jComboTransporte.addItem(t);
+        }
+        jComboTransporte.setSelectedIndex(-1);
+        ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosDeUnDestino(d.getIdDestino());
+
+        for (Alojamiento a : listaalojamientos) {
+            jComboAlojamiento.addItem(a);
+        }
+        jComboAlojamiento.setSelectedIndex(-1);
+
+    }//GEN-LAST:event_jComboDestinoFocusLost
+
+    private void jComboAlojamientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboAlojamientoFocusLost
+        Alojamiento a = (Alojamiento) jComboAlojamiento.getSelectedItem();
+
+        ArrayList<Extraalojamiento> listaExtra = (ArrayList<Extraalojamiento>) ed.listarExtrasDeUnAlojamiento(a.getIdAlojamiento());
+
+        for (Extraalojamiento e : listaExtra) {
+            jComboExtra.addItem(e);
+        }
+        jComboExtra.setSelectedIndex(-1);
+    }//GEN-LAST:event_jComboAlojamientoFocusLost
+
+    private void jComboDestinoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboDestinoFocusGained
+        jComboTransporte.removeAllItems();
+        jComboAlojamiento.removeAllItems();
+        jComboExtra.removeAllItems();
+    }//GEN-LAST:event_jComboDestinoFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -471,7 +435,6 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Destino> jComboDestino;
     private javax.swing.JComboBox<Extraalojamiento> jComboExtra;
     private javax.swing.JComboBox<Transporte> jComboTransporte;
-    private com.toedter.calendar.JDateChooser jFechaEmision;
     private com.toedter.calendar.JDateChooser jFechaFin;
     private com.toedter.calendar.JDateChooser jFechaInicio;
     private javax.swing.JLabel jLabel1;
@@ -488,5 +451,6 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextCostoTotal;
+    private javax.swing.JTextField jTextFechaEmision;
     // End of variables declaration//GEN-END:variables
 }

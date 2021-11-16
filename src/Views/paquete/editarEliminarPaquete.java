@@ -17,7 +17,6 @@ import Controls.ExtraalojamientoData;
 import Controls.PaqueteData;
 import Controls.TransporteData;
 import Models.Alojamiento;
-import Models.Cliente;
 import Models.Destino;
 import Models.Extraalojamiento;
 import Models.Transporte;
@@ -456,7 +455,7 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
 
         int personas = (int) jSpinnercantidad.getValue();
         
-        p.cant=personas;
+        p.setCant(personas);
         
         if (jRadioSi.isSelected()) {
             p.setActivo(true);

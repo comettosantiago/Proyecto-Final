@@ -352,13 +352,11 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         p.setFechaFin(localdateFin);
         p.setFechaEmisionPaquete(localdateemision);
 
-        p.setCostoTotalPaquete(p.getCostoTotalPaquete() * ((Integer) jCantidad.getValue()));
-
         p.setActivo(true);
 
         int personas = (int) jCantidad.getValue();
         
-        p.cant=personas;
+        p.setCant(personas);
         
         pd.agregarPaquete(p);       
         

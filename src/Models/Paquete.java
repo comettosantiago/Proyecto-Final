@@ -26,6 +26,7 @@ public class Paquete {
     private LocalDate fechaEmisionPaquete;
     private float costoTotalPaquete;
     private boolean activo;
+    private float cant = 1;
 
     //constructor
     public Paquete() {
@@ -84,8 +85,6 @@ public class Paquete {
         return fechaEmisionPaquete;
     }
 
-    public float cant = 1;
-
     public float getCostoTotalPaquete() {
         int dias = (int) ChronoUnit.DAYS.between(this.getFechaInicio(), this.getFechaFin());
 
@@ -143,9 +142,13 @@ public class Paquete {
         this.activo = activo;
     }
 
+    public void setCant(float cant) {
+        this.cant = cant;
+    }
+
     @Override
     public String toString() {
-        return  idPaquete + " - " + cliente.getNombre() + " " + cliente.getApellido();
+        return idPaquete + " - " + cliente.getNombre() + " " + cliente.getApellido();
     }
 
 }

@@ -34,6 +34,7 @@ public class agregarAlojamiento extends javax.swing.JInternalFrame {
         jTextNombre.setText("");
         jComboTipo.setSelectedIndex(-1);
         jTextCosto.setText("");
+        jComboDestino.setSelectedIndex(-1);
     }
 
     public void llenarComboDestino() {
@@ -185,7 +186,7 @@ public class agregarAlojamiento extends javax.swing.JInternalFrame {
         a.setDestino((Destino) jComboDestino.getSelectedItem());
         a.setTipoDeAlojamiento(jComboTipo.getSelectedItem().toString());
         a.setCostoAlojamiento(Float.parseFloat(jTextCosto.getText()));
-
+        a.setActivo(true);
         ad.agregarAlojamiento(a);
 
         limpiarCampos();

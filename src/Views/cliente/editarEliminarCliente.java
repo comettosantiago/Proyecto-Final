@@ -34,6 +34,7 @@ public class editarEliminarCliente extends javax.swing.JInternalFrame {
         jTextCiudad.setText("");
         jTextTelefono.setText("");
         jTextEmail.setText("");
+        jComboCliente.setSelectedIndex(-1);
     }
 
     public void llenarCombo() {

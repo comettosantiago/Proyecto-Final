@@ -30,6 +30,7 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
     public void limpiarCampos() {
         jComboTipo.setSelectedIndex(-1);
         jTextCosto.setText("");
+        jComboDestino.setSelectedIndex(-1);
     }
     public void llenarComboDestino() {
         ArrayList<Destino> listaDestinos = (ArrayList<Destino>) dd.listarDestinosActivos();

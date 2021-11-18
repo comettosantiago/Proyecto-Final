@@ -8,6 +8,7 @@ package Views.cliente;
 import Controls.ClienteData;
 import Controls.Conexion;
 import Models.Cliente;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -186,17 +187,25 @@ public class agregarCliente extends javax.swing.JInternalFrame {
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         Cliente c = new Cliente();
-        
-        c.setDni(Integer.parseInt(jTextDni.getText()));
-        c.setNombre(jTextNombre.getText());
-        c.setApellido(jTextApellido.getText());
-        c.setDireccion(jTextDireccion.getText());
-        c.setCiudad(jTextCiudad.getText());
-        c.setTelefono(jTextTelefono.getText());
-        c.setEmail(jTextEmail.getText());
 
-        cd.agregarCliente(c);
-        
+        try {
+            Integer telefono = Integer.parseInt(jTextTelefono.getText());
+            Integer dni = Integer.parseInt(jTextDni.getText());
+
+            c.setDni(Integer.parseInt(jTextDni.getText()));
+            c.setNombre(jTextNombre.getText());
+            c.setApellido(jTextApellido.getText());
+            c.setDireccion(jTextDireccion.getText());
+            c.setCiudad(jTextCiudad.getText());
+            c.setTelefono(jTextTelefono.getText());
+            c.setEmail(jTextEmail.getText());
+
+            cd.agregarCliente(c);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Revisar telefono/DNI");
+        }
+
         limpiarCampos();
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 

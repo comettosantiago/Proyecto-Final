@@ -11,6 +11,7 @@ import Controls.DestinoData;
 import Models.Alojamiento;
 import Models.Destino;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -182,12 +183,16 @@ public class agregarAlojamiento extends javax.swing.JInternalFrame {
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
         Alojamiento a = new Alojamiento();
 
-        a.setNombreAlojamiento(jTextNombre.getText());
-        a.setDestino((Destino) jComboDestino.getSelectedItem());
-        a.setTipoDeAlojamiento(jComboTipo.getSelectedItem().toString());
-        a.setCostoAlojamiento(Float.parseFloat(jTextCosto.getText()));
-        a.setActivo(true);
-        ad.agregarAlojamiento(a);
+        try {
+            a.setNombreAlojamiento(jTextNombre.getText());
+            a.setDestino((Destino) jComboDestino.getSelectedItem());
+            a.setTipoDeAlojamiento(jComboTipo.getSelectedItem().toString());
+            a.setCostoAlojamiento(Float.parseFloat(jTextCosto.getText()));
+            a.setActivo(true);
+            ad.agregarAlojamiento(a);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Revisar costo");
+        }
 
         limpiarCampos();
     }//GEN-LAST:event_jButtonAgregarActionPerformed

@@ -10,6 +10,7 @@ import Controls.Conexion;
 import Controls.DestinoData;
 import Models.Alojamiento;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -232,16 +233,20 @@ public class editarEliminarAlojamiento extends javax.swing.JInternalFrame {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         Alojamiento a = (Alojamiento) jComboAlojamiento.getSelectedItem();
 
-        a.setNombreAlojamiento(jTextNombre.getText());
-        a.setTipoDeAlojamiento(jComboTipo.getSelectedItem().toString());
-        a.setCostoAlojamiento(Float.parseFloat(jTextCosto.getText()));
-        if (jRadioButton1.isSelected()) {
-            a.setActivo(true);
-        } else {
-            a.setActivo(false);
-        }
+        try {
+            a.setNombreAlojamiento(jTextNombre.getText());
+            a.setTipoDeAlojamiento(jComboTipo.getSelectedItem().toString());
+            a.setCostoAlojamiento(Float.parseFloat(jTextCosto.getText()));
+            if (jRadioButton1.isSelected()) {
+                a.setActivo(true);
+            } else {
+                a.setActivo(false);
+            }
 
-        ad.editarAlojamiento(a);
+            ad.editarAlojamiento(a);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Revisar costo");
+        }
 
         limpiarCampos();
     }//GEN-LAST:event_jButtonGuardarActionPerformed

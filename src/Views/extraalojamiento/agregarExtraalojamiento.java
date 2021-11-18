@@ -11,18 +11,20 @@ import Controls.ExtraalojamientoData;
 import Models.Alojamiento;
 import Models.Extraalojamiento;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Isaias
  */
 public class agregarExtraalojamiento extends javax.swing.JInternalFrame {
+
     Conexion con = new Conexion();
 
     AlojamientoData ad = new AlojamientoData(con);
 
     ExtraalojamientoData ed = new ExtraalojamientoData(con);
-    
+
     /**
      * Creates new form agregarExtraalojamiento
      */
@@ -31,12 +33,13 @@ public class agregarExtraalojamiento extends javax.swing.JInternalFrame {
         llenarComboAlojamiento();
         limpiarCampos();
     }
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         jComboAlojamiento.setSelectedIndex(-1);
         jComboMenu.setSelectedIndex(-1);
         jTextCosto.setText("");
     }
-    
+
     public void llenarComboAlojamiento() {
         ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosActivos();
 
@@ -45,6 +48,7 @@ public class agregarExtraalojamiento extends javax.swing.JInternalFrame {
         }
         jComboAlojamiento.setSelectedIndex(-1);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -157,14 +161,18 @@ public class agregarExtraalojamiento extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAgregarActionPerformed
-        Alojamiento alojamiento = (Alojamiento)jComboAlojamiento.getSelectedItem();
-        String menu = jComboMenu.getSelectedItem().toString();
-        float costo = Float.parseFloat(jTextCosto.getText());
-        
-        Extraalojamiento e = new Extraalojamiento(alojamiento, menu, costo, true);
-        
-        ed.agregarExtra(e);
-        
+        try {
+            Alojamiento alojamiento = (Alojamiento) jComboAlojamiento.getSelectedItem();
+            String menu = jComboMenu.getSelectedItem().toString();
+            float costo = Float.parseFloat(jTextCosto.getText());
+
+            Extraalojamiento e = new Extraalojamiento(alojamiento, menu, costo, true);
+
+            ed.agregarExtra(e);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Revisar costo");
+        }
+
         limpiarCampos();
     }//GEN-LAST:event_jBtAgregarActionPerformed
 

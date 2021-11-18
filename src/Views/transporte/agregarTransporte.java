@@ -4,21 +4,26 @@
  * and open the template in the editor.
  */
 package Views.transporte;
+
 import Controls.Conexion;
 import Controls.DestinoData;
 import Controls.TransporteData;
 import Models.Destino;
 import Models.Transporte;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Isaias
  */
 public class agregarTransporte extends javax.swing.JInternalFrame {
+
     Conexion con = new Conexion();
 
     TransporteData td = new TransporteData(con);
     DestinoData dd = new DestinoData(con);
+
     /**
      * Creates new form agregarTransporte
      */
@@ -27,19 +32,22 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
         llenarComboDestino();
         limpiarCampos();
     }
+
     public void limpiarCampos() {
         jComboTipo.setSelectedIndex(-1);
         jTextCosto.setText("");
         jComboDestino.setSelectedIndex(-1);
     }
+
     public void llenarComboDestino() {
         ArrayList<Destino> listaDestinos = (ArrayList<Destino>) dd.listarDestinosActivos();
-        
+
         for (Destino d : listaDestinos) {
             jComboDestino.addItem(d);
         }
         jComboDestino.setSelectedIndex(-1);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,14 +170,19 @@ public class agregarTransporte extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAgregarActionPerformed
-        Destino destino = (Destino)jComboDestino.getSelectedItem();
+        Destino destino = (Destino) jComboDestino.getSelectedItem();
         String transporte = jComboTipo.getSelectedItem().toString();
-        float costo = Float.parseFloat(jTextCosto.getText());
-        
-        Transporte t = new Transporte(destino, transporte, costo, true);
-        
-        td.agregarTransporte(t);
-        
+        try {
+
+            float costo = Float.parseFloat(jTextCosto.getText());
+
+            Transporte t = new Transporte(destino, transporte, costo, true);
+
+            td.agregarTransporte(t);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Revisar costo");
+        }
+
         limpiarCampos();
     }//GEN-LAST:event_jBtAgregarActionPerformed
 

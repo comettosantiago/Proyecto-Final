@@ -28,6 +28,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 public class editarEliminarPaquete extends javax.swing.JInternalFrame {
+
     Conexion con = new Conexion();
 
     ClienteData cd = new ClienteData(con);
@@ -41,6 +42,7 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
     ExtraalojamientoData ed = new ExtraalojamientoData(con);
 
     PaqueteData pd = new PaqueteData(con);
+
     /**
      * Creates new form editarEliminarPaquete
      */
@@ -49,11 +51,14 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         llenarComboPaquete();
         limpiarCampos();
         completarFecha();
+        jBtGuardar.setEnabled(false);
     }
-    public void completarFecha(){
+
+    public void completarFecha() {
         LocalDate a = LocalDate.now();
         jTextEmision.setText(a.toString());
     }
+
     public void llenarComboPaquete() {
         ArrayList<Paquete> listapaquete = (ArrayList<Paquete>) pd.listarTodosLosPaquetes();
 
@@ -62,7 +67,8 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         }
         jComboPaquete.setSelectedIndex(-1);
     }
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         jComboPaquete.setSelectedIndex(-1);
         jComboDestino.setSelectedIndex(-1);
         jComboTransporte.setSelectedIndex(-1);
@@ -386,25 +392,25 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         jComboAlojamiento.removeAllItems();
         jComboExtra.removeAllItems();
         Paquete p = (Paquete) jComboPaquete.getSelectedItem();
-        
-        if (jComboPaquete.getSelectedIndex() != -1 || jComboPaquete.getSelectedItem() != null){
-        jComboDestino.addItem((Destino)p.getExtra().getAlojamiento().getDestino());
-        jComboDestino.setSelectedIndex(0);
-        jComboTransporte.addItem((Transporte)p.getTransporte());
-        jComboTransporte.setSelectedIndex(0);
-        jComboAlojamiento.addItem((Alojamiento)p.getExtra().getAlojamiento());
-        jComboAlojamiento.setSelectedIndex(0);
-        jComboExtra.addItem((Extraalojamiento)p.getExtra());
-        jComboExtra.setSelectedIndex(0);
-        //Fechas
-        LocalDate localdateemision = LocalDate.now();
-        Date d = java.sql.Date.valueOf(p.getFechaInicio());
-         jFechaInicio.setDate(d);
-        Date de = java.sql.Date.valueOf(p.getFechaFin());
-         jFechaFin.setDate(de);
-        
-        //Activo
-        if (p.isActivo()) {
+
+        if (jComboPaquete.getSelectedIndex() != -1 || jComboPaquete.getSelectedItem() != null) {
+            jComboDestino.addItem((Destino) p.getExtra().getAlojamiento().getDestino());
+            jComboDestino.setSelectedIndex(0);
+            jComboTransporte.addItem((Transporte) p.getTransporte());
+            jComboTransporte.setSelectedIndex(0);
+            jComboAlojamiento.addItem((Alojamiento) p.getExtra().getAlojamiento());
+            jComboAlojamiento.setSelectedIndex(0);
+            jComboExtra.addItem((Extraalojamiento) p.getExtra());
+            jComboExtra.setSelectedIndex(0);
+            //Fechas
+            LocalDate localdateemision = LocalDate.now();
+            Date d = java.sql.Date.valueOf(p.getFechaInicio());
+            jFechaInicio.setDate(d);
+            Date de = java.sql.Date.valueOf(p.getFechaFin());
+            jFechaFin.setDate(de);
+
+            //Activo
+            if (p.isActivo()) {
                 jRadioSi.setSelected(true);
             } else {
                 jRadioNo.setSelected(true);
@@ -414,7 +420,7 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
 
     private void jBtCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCalcularActionPerformed
         Paquete p = (Paquete) jComboPaquete.getSelectedItem();
-        
+
         LocalDate localdateInicio = jFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateFin = jFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
@@ -424,14 +430,18 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         p.setFechaInicio(localdateInicio);
         p.setFechaFin(localdateFin);
         Integer valor = (Integer) jSpinnercantidad.getValue();
-        if (valor <= 0) {
+
+        if (localdateInicio.isAfter(localdateFin) || localdateInicio.isBefore(LocalDate.now())) {
+            JOptionPane.showMessageDialog(this, "Fechas erroneas");
+        } else if (valor <= 0) {
             JOptionPane.showMessageDialog(this, "No selecciono la cantidad de personas.");
         } else {
-            Float a =(Float)p.getCostoTotalPaquete() * valor;
+            Float a = (Float) p.getCostoTotalPaquete() * valor;
             if (a <= 0) {
                 JOptionPane.showMessageDialog(this, "Error en las fechas de inicio/fin.");
             } else {
                 jTextCostoTotal.setText(a.toString());
+                jBtGuardar.setEnabled(true);
             }
         }
 
@@ -443,7 +453,7 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         LocalDate localdateInicio = jFechaInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateFin = jFechaFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate localdateemision = LocalDate.now();
-                
+
         p.setCliente(p.getCliente());
         p.setTransporte((Transporte) jComboTransporte.getSelectedItem());
         p.setExtra((Extraalojamiento) jComboExtra.getSelectedItem());
@@ -454,9 +464,9 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         p.setCostoTotalPaquete(p.getCostoTotalPaquete() * ((Integer) jSpinnercantidad.getValue()));
 
         int personas = (int) jSpinnercantidad.getValue();
-        
+
         p.setCant(personas);
-        
+
         if (jRadioSi.isSelected()) {
             p.setActivo(true);
         } else {
@@ -469,11 +479,11 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBtGuardarActionPerformed
 
     private void jBtSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSalirActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jBtSalirActionPerformed
 
     private void jComboDestinoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboDestinoMouseClicked
-        jComboDestino.removeAllItems();    
+        jComboDestino.removeAllItems();
         ArrayList<Destino> listadestinos = (ArrayList<Destino>) dd.listarDestinosActivos();
 
         for (Destino d : listadestinos) {
@@ -493,8 +503,8 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
         for (Transporte t : listaTransporte) {
             jComboTransporte.addItem(t);
         }
-            jComboTransporte.setSelectedIndex(-1);
-        
+        jComboTransporte.setSelectedIndex(-1);
+
         ArrayList<Alojamiento> listaalojamientos = (ArrayList<Alojamiento>) ad.listarAlojamientosDeUnDestino(d.getIdDestino());
 
         for (Alojamiento a : listaalojamientos) {
@@ -557,4 +567,3 @@ public class editarEliminarPaquete extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
 }
-

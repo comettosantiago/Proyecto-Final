@@ -11,17 +11,20 @@ import Controls.ExtraalojamientoData;
 import Models.Alojamiento;
 import Models.Extraalojamiento;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Isaias
  */
 public class editarEliminarExtra extends javax.swing.JInternalFrame {
+
     Conexion con = new Conexion();
 
     AlojamientoData ad = new AlojamientoData(con);
 
     ExtraalojamientoData ed = new ExtraalojamientoData(con);
+
     /**
      * Creates new form editarEliminarExtra
      */
@@ -30,12 +33,14 @@ public class editarEliminarExtra extends javax.swing.JInternalFrame {
         llenarComboExtra();
         limpiarCampos();
     }
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         jComboExtra.setSelectedIndex(-1);
         jComboMenu.setSelectedIndex(-1);
         jTextCosto.setText("");
         buttonGroup1.clearSelection();
     }
+
     public void llenarComboExtra() {
         ArrayList<Extraalojamiento> listaExtraalojamiento = (ArrayList<Extraalojamiento>) ed.listarTodosLosExtras();
 
@@ -198,7 +203,7 @@ public class editarEliminarExtra extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboExtraActionPerformed
-         Extraalojamiento e = (Extraalojamiento) jComboExtra.getSelectedItem();
+        Extraalojamiento e = (Extraalojamiento) jComboExtra.getSelectedItem();
 
         if (jComboExtra.getSelectedItem() != null || jComboExtra.getSelectedIndex() != -1) {
             jComboMenu.setSelectedItem(e.getTipoDeMenu());
@@ -214,17 +219,21 @@ public class editarEliminarExtra extends javax.swing.JInternalFrame {
 
     private void jBtGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGuardarActionPerformed
         Extraalojamiento e = (Extraalojamiento) jComboExtra.getSelectedItem();
-        
-        e.setAlojamiento(e.getAlojamiento());
-        e.setTipoDeMenu(jComboMenu.getSelectedItem().toString());
-        e.setCosto(Float.parseFloat(jTextCosto.getText()));
-        if (jRadioSi.isSelected()) {
-            e.setActivo(true);
-        } else {
-            e.setActivo(false);
-        }
 
-        ed.editarExtra(e);
+        try {
+            e.setAlojamiento(e.getAlojamiento());
+            e.setTipoDeMenu(jComboMenu.getSelectedItem().toString());
+            e.setCosto(Float.parseFloat(jTextCosto.getText()));
+            if (jRadioSi.isSelected()) {
+                e.setActivo(true);
+            } else {
+                e.setActivo(false);
+            }
+
+            ed.editarExtra(e);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Revisar costo");
+        }
 
         limpiarCampos();
     }//GEN-LAST:event_jBtGuardarActionPerformed

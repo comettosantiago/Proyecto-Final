@@ -18,7 +18,6 @@ import Models.Destino;
 import Models.Extraalojamiento;
 import Models.Paquete;
 import Models.Transporte;
-import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -50,11 +49,14 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         llenarComboDestino();
         limpiarCampos();
         completarFecha();
+        jBtGenerar.setEnabled(false);
     }
-    public void completarFecha(){
+
+    public void completarFecha() {
         LocalDate a = LocalDate.now();
         jTextFechaEmision.setText(a.toString());
     }
+
     public void limpiarCampos() {
         jComboCliente.setSelectedIndex(-1);
         jComboDestino.setSelectedIndex(-1);
@@ -356,11 +358,11 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         p.setActivo(true);
 
         int personas = (int) jCantidad.getValue();
-        
+
         p.setCant(personas);
-        
-        pd.agregarPaquete(p);       
-        
+
+        pd.agregarPaquete(p);
+
         limpiarCampos();
         completarFecha();
     }//GEN-LAST:event_jBtGenerarActionPerformed
@@ -377,7 +379,10 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
         p.setFechaInicio(localdateInicio);
         p.setFechaFin(localdateFin);
         Integer valor = (Integer) jCantidad.getValue();
-        if (valor <= 0) {
+
+        if (localdateInicio.isAfter(localdateFin) || localdateInicio.isBefore(LocalDate.now())) {
+            JOptionPane.showMessageDialog(this, "Fechas erroneas");
+        } else if (valor <= 0) {
             JOptionPane.showMessageDialog(this, "No selecciono la cantidad de personas.");
         } else {
             Float a = p.getCostoTotalPaquete() * valor;
@@ -385,10 +390,12 @@ public class agregarPaquete extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Error en las fechas de inicio/fin.");
             } else {
                 jTextCostoTotal.setText(a.toString());
+                jBtGenerar.setEnabled(true);
             }
         }
 
         p.setActivo(true);
+
     }//GEN-LAST:event_jBtCalcularActionPerformed
 
     private void jComboDestinoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboDestinoFocusLost

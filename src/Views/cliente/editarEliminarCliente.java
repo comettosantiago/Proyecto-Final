@@ -9,6 +9,7 @@ import Controls.ClienteData;
 import Controls.Conexion;
 import Models.Cliente;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -250,7 +251,7 @@ public class editarEliminarCliente extends javax.swing.JInternalFrame {
         Cliente c = (Cliente) jComboCliente.getSelectedItem();
 
         if (jComboCliente.getSelectedIndex() != -1 || jComboCliente.getSelectedItem() != null) {
-            
+
             jTextDni.setText(Integer.toString(c.getDni()));
             jTextNombre.setText(c.getNombre());
             jTextApellido.setText(c.getApellido());
@@ -264,16 +265,24 @@ public class editarEliminarCliente extends javax.swing.JInternalFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         Cliente c = (Cliente) jComboCliente.getSelectedItem();
-        
-        c.setDni(Integer.parseInt(jTextDni.getText()));
-        c.setNombre(jTextNombre.getText());
-        c.setApellido(jTextApellido.getText());
-        c.setDireccion(jTextDireccion.getText());
-        c.setCiudad(jTextCiudad.getText());
-        c.setTelefono(jTextTelefono.getText());
-        c.setEmail(jTextEmail.getText());
-        
-        cd.editarCliente(c);
+
+        try {
+            Integer telefono = Integer.parseInt(jTextTelefono.getText());
+            Integer dni = Integer.parseInt(jTextDni.getText());
+
+            c.setDni(Integer.parseInt(jTextDni.getText()));
+            c.setNombre(jTextNombre.getText());
+            c.setApellido(jTextApellido.getText());
+            c.setDireccion(jTextDireccion.getText());
+            c.setCiudad(jTextCiudad.getText());
+            c.setTelefono(jTextTelefono.getText());
+            c.setEmail(jTextEmail.getText());
+
+            cd.editarCliente(c);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Revisar telefono/DNI");
+        }
 
         limpiarCampos();
     }//GEN-LAST:event_jButtonGuardarActionPerformed

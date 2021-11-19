@@ -17,6 +17,9 @@ import Views.paquete.agregarPaquete;
 import Views.paquete.editarEliminarPaquete;
 import Views.transporte.agregarTransporte;
 import Views.transporte.editarEliminarTransporte;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 
 /**
@@ -27,6 +30,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("/imagenes/icono.png")).getImage());
         this.setLocationRelativeTo(null);
     }
 
@@ -47,7 +51,14 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu10 = new javax.swing.JMenu();
-        panelPrincipal = new javax.swing.JDesktopPane();
+        ImageIcon icono = new ImageIcon(getClass().getResource("/imagenes/fondo.jpg"));
+        Image miImagen = icono.getImage();
+        panelPrincipal = new javax.swing.JDesktopPane(){
+            public void paintComponent(Graphics g){
+                g.drawImage(miImagen, 0, 0, getWidth(), getHeight(), this);
+            }
+        }
+        ;
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
@@ -72,6 +83,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jMenu10.setText("jMenu10");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestión de Paquetes");
 
         panelPrincipal.setPreferredSize(new java.awt.Dimension(1000, 700));
 

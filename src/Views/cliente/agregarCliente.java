@@ -8,6 +8,7 @@ package Views.cliente;
 import Controls.ClienteData;
 import Controls.Conexion;
 import Models.Cliente;
+import java.math.BigInteger;
 import javax.swing.JOptionPane;
 
 /**
@@ -189,8 +190,8 @@ public class agregarCliente extends javax.swing.JInternalFrame {
         Cliente c = new Cliente();
 
         try {
-            Integer telefono = Integer.parseInt(jTextTelefono.getText());
-            Integer dni = Integer.parseInt(jTextDni.getText());
+            BigInteger telefono = new BigInteger(jTextTelefono.getText());
+            BigInteger dni  = new BigInteger(jTextDni.getText());
 
             c.setDni(Integer.parseInt(jTextDni.getText()));
             c.setNombre(jTextNombre.getText());
